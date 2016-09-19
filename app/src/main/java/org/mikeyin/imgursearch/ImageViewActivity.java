@@ -24,8 +24,6 @@ public class ImageViewActivity extends AppCompatActivity {
     public static final String KEY_IMAGE_URL = "key_image_url";
     public static final String KEY_TITLE = "key_title";
 
-    public static final String KEY_SHARED_IMAGE = "key_shared_image";
-
     private Picasso mPicasso;
     private ImageView mImage;
     private TextView mTitle;

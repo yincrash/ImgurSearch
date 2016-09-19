@@ -5,5 +5,4 @@
     <string name="transition_title">transition_title</string>
     <string name="transition_toolbar">transition_toolbar</string>
     <string name="action_search">Search</string>
-    <string name="title_activity_main">MainActivity</string>
 </resources>

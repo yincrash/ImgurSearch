@@ -36,6 +36,11 @@
             android:theme="@style/AppTheme.Translucent"
             android:parentActivityName=".SearchActivity">
         </activity>
+        <activity
+            android:name=".AnimatedViewActivity"
+            android:theme="@style/AppTheme.Translucent"
+            android:parentActivityName=".SearchActivity">
+        </activity>
     </application>
 
 </manifest>

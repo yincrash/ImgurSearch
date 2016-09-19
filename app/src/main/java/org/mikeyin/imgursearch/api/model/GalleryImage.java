@@ -2,6 +2,8 @@ package org.mikeyin.imgursearch.api.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * https://api.imgur.com/models/gallery_image
  */
@@ -29,6 +31,12 @@ public class GalleryImage {
 
     @SerializedName("looping")
     private boolean mLooping;
+
+    @SerializedName("animated")
+    private boolean mAnimated;
+
+    @SerializedName("images")
+    private List<GalleryImage> mImages;
 
     public String getId() {
         return mId;
@@ -60,5 +68,13 @@ public class GalleryImage {
 
     public boolean isLooping() {
         return mLooping;
+    }
+
+    public boolean isAnimated() {
+        return mAnimated;
+    }
+
+    public List<GalleryImage> getImages() {
+        return mImages;
     }
 }
