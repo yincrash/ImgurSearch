@@ -421,14 +421,20 @@ public class SearchActivity extends AppCompatActivity {
                 ViewCompat.setTransitionName(holder.mVideo, transitionImage);
                 ViewCompat.setTransitionName(holder.mTitle, transitionTitle);
 
-
+                Pair<View, String> transitionNames[];
+                if (statusBar == null) {
+                    // some devices can't access and some can :|
+                    transitionNames = new Pair[3];
+                } else {
+                    transitionNames = new Pair[4];
+                    transitionNames[3] =
+                            Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME);
+                }
+                transitionNames[0] = Pair.create((View) holder.mVideo, transitionImage);
+                transitionNames[1] = Pair.create((View) holder.mTitle, transitionTitle);
+                transitionNames[2] = Pair.create(toolBar, getString(R.string.transition_toolbar));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        SearchActivity.this,
-                        Pair.create((View) holder.mVideo, transitionImage),
-                        Pair.create((View) holder.mTitle, transitionTitle),
-                        Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME),
-                        Pair.create(toolBar, getString(R.string.transition_toolbar))
-                );
+                        SearchActivity.this, transitionNames);
                 startActivity(intent, options.toBundle());
             } else if (rawHolder instanceof ImageViewHolder) {
                 Intent intent = new Intent(SearchActivity.this, ImageViewActivity.class);
@@ -442,13 +448,20 @@ public class SearchActivity extends AppCompatActivity {
                 ViewCompat.setTransitionName(holder.mImage, transitionImage);
                 ViewCompat.setTransitionName(holder.mTitle, transitionTitle);
 
+                Pair<View, String> transitionNames[];
+                if (statusBar == null) {
+                    transitionNames = new Pair[3];
+                } else {
+                    transitionNames = new Pair[4];
+                    transitionNames[3] =
+                            Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME);
+                }
+                transitionNames[0] = Pair.create((View) holder.mImage, transitionImage);
+                transitionNames[1] = Pair.create((View) holder.mTitle, transitionTitle);
+                transitionNames[2] = Pair.create(toolBar, getString(R.string.transition_toolbar));
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        SearchActivity.this,
-                        Pair.create((View) holder.mImage, transitionImage),
-                        Pair.create((View) holder.mTitle, transitionTitle),
-                        Pair.create(statusBar, Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME),
-                        Pair.create(toolBar, getString(R.string.transition_toolbar))
-                );
+                        SearchActivity.this, transitionNames);
                 startActivity(intent, options.toBundle());
             }
         }
