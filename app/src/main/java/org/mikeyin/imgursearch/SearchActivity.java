@@ -48,7 +48,7 @@ import rx.functions.Action1;
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = SearchActivity.class.getSimpleName();
 
-    private static final String IMGUR_URL_FORMAT = "http://i.imgur.com/%s.jpg";
+    private static final String IMGUR_URL_FORMAT = "http://i.imgur.com/%1$s.%2$s";
     private static final String KEY_LAST_QUERY = "last_query";
 
     private Subscription mSearchViewSubscription;
@@ -141,6 +141,7 @@ public class SearchActivity extends AppCompatActivity {
         for (int i = mListResultsLayoutManager.findFirstVisibleItemPosition();
              i <= mListResultsLayoutManager.findLastVisibleItemPosition(); i++) {
             View view = mListResultsLayoutManager.findViewByPosition(i);
+            if (view == null) { break; }
             VideoView video = (VideoView) view.findViewById(R.id.video);
             if (video != null) { video.stopPlayback(); }
         }
@@ -331,9 +332,15 @@ public class SearchActivity extends AppCompatActivity {
 
             final GalleryImage image = mImages.get(position);
             if (image.getCover() != null) {
-                viewHolder.mUrl = String.format(IMGUR_URL_FORMAT, image.getCover());
+                viewHolder.mUrl = String.format(IMGUR_URL_FORMAT, image.getCover(), "jpg");
+                // TODO: access the album images to get the correct image and format
             } else {
-                viewHolder.mUrl = String.format(IMGUR_URL_FORMAT, image.getId());
+                String ext = "jpg";
+                if (image.getType() != null) {
+                    ext = image.getType().substring(image.getType().indexOf('/') + 1);
+                    if (ext.equals("jpeg")) { ext = "jpg"; }
+                }
+                viewHolder.mUrl = String.format(IMGUR_URL_FORMAT, image.getId(), ext);
             }
             viewHolder.mTitle.setText(image.getTitle());
             loadImage(viewHolder);
